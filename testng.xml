@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="HR-Polaris">
+    <parameter name="browser" value="chrome"/>
+
+<!--    <test name="Verify HR Pages">-->
+<!--        <classes>-->
+<!--            <class name="testcases.TC02_VerifyEmployeesDataPage"/>-->
+<!--            <class name="testcases.TC03_VerifyJobPositionPage"/>-->
+<!--            <class name="testcases.TC04_VerifyWorkLocationPage"/>-->
+<!--            <class name="testcases.TC05_VerifyEmployeeOrgStructurePage"/>-->
+<!--            <class name="testcases.TC06_VerifyEmployeeContractPage"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Test Add Employee Locators">-->
+<!--        <classes>-->
+<!--            <class name="testcases.TC07_TestAddEmployeeLocators"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+
+<!--    <test name="Test Add Employee Locators">-->
+<!--        <classes>-->
+<!--            <class name="testcases.TC08_EditEmployee"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+        <test name="Test Add Employee Locators">
+            <classes>
+                <class name="testcases.TC02_VerifyEmployeesDataPage"/>
+            </classes>
+        </test>
+
+</suite>
