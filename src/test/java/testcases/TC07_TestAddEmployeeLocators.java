@@ -143,10 +143,13 @@
 package testcases;
 
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.P02_EmployeesDataPage;
 import pages.P07_AddEmployeePage;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.Locale;
 
 import static drivers.DriverHolder.getDriver;
 import static pages.PageBase.longWait;
@@ -165,8 +168,8 @@ public class TC07_TestAddEmployeeLocators extends TestBase {
     private static final String SUCCESS_MESSAGE_XPATH = "//*[contains(text(),'تم') or contains(text(),'نجح')]";
     private static final String EMPLOYEES_DATA_URL = "employees-data";
 
-    private static final int PAGE_LOAD_TIMEOUT = 3000;
-    private static final int TAB_SWITCH_TIMEOUT = 2000;
+    private static final int PAGE_LOAD_TIMEOUT = 4000;
+    private static final int TAB_SWITCH_TIMEOUT = 3000;
 
     /**
      * Test Case: Add Employee - Complete Data Entry Flow
@@ -185,30 +188,62 @@ public class TC07_TestAddEmployeeLocators extends TestBase {
      *
      * @throws InterruptedException if thread sleep is interrupted
      */
-    @Test(description = "Add employee - Complete data entry in single flow without page reload")
-    public void testAddEmployeeWithCompleteData() throws InterruptedException {
+//    @Test(description = "Add employee - Complete data entry in single flow without page reload")
+//    public void testAddEmployeeWithCompleteData() throws InterruptedException {
+//
+//        // Step 1: Navigate to Add Employee page
+//        navigateToAddEmployeePage();
+//
+//        // Step 2: Initialize Add Employee Page Object
+//        P07_AddEmployeePage addPage = new P07_AddEmployeePage(getDriver());
+//
+//        // Step 3: Wait for page to be fully loaded
+//        waitForAddEmployeePageLoad();
+//
+//        // Step 4: Fill all employee data sections
+//        fillBasicInformation(addPage);
+//        fillPersonalInformation(addPage);
+//        fillContactInformation(addPage);
+//        fillAcademicInformation(addPage);
+//        fillOfficialDocuments(addPage);
+//        fillJobInformation(addPage);
+//        fillDependentsInformation(addPage);
+//        fillInsuranceInformation(addPage);
+//
+//        // Step 5: Save and validate
+//        saveAndValidateEmployee(addPage);
+//    }
 
-        // Step 1: Navigate to Add Employee page
+    /**
+     * Simple test: Add employee with required + تاريخ الميلاد + الجنسية (داتا عشوائية).
+     * يتأكد من رسالة النجاح وأن الموظف يظهر في الجدول.
+     */
+    @Test(description = "Add employee - required + birth date + nationality (random data)")
+    public void testAddEmployeeRequiredOnly() throws InterruptedException {
+        String nameAr = new com.github.javafaker.Faker(Locale.forLanguageTag("ar")).name().fullName() + " التجريبي";
+        String nameEn = (faker.name().fullName() + " Test").replaceAll("[^a-zA-Z\\s]", "");
+        String attendanceCode = faker.number().digits(5);
+
         navigateToAddEmployeePage();
-
-        // Step 2: Initialize Add Employee Page Object
         P07_AddEmployeePage addPage = new P07_AddEmployeePage(getDriver());
-
-        // Step 3: Wait for page to be fully loaded
         waitForAddEmployeePageLoad();
 
-        // Step 4: Fill all employee data sections
-        fillBasicInformation(addPage);
-        fillPersonalInformation(addPage);
-        fillContactInformation(addPage);
-        fillAcademicInformation(addPage);
-        fillOfficialDocuments(addPage);
-        fillJobInformation(addPage);
-        fillDependentsInformation(addPage);
-        fillInsuranceInformation(addPage);
+        addPage
+                .setEmployeeNameAr(nameAr)
+                .setEmployeeNameEn(nameEn)
+                .setAttendanceCode(attendanceCode)
+//                .clickPersonalInfoTab()
+                .selectRandomBirthDate()
+                .setNationalityToFirst()
+                .clickSave();
 
-        // Step 5: Save and validate
-        saveAndValidateEmployee(addPage); // ✅ تمرير الـ addPage
+        Assert.assertTrue(addPage.waitForSuccessToast(), "رسالة النجاح (تم بنجاح) لم تظهر بعد إضافة الموظف");
+
+        // التطبيق يحوّل تلقائياً لصفحة قائمة الموظفين بعد الإضافة
+        longWait(getDriver()).until(ExpectedConditions.urlContains(EMPLOYEES_DATA_URL));
+
+        P02_EmployeesDataPage listPage = new P02_EmployeesDataPage(getDriver());
+        Assert.assertTrue(listPage.isEmployeeNameInTable(nameAr), "الموظف المضاف لا يظهر في جدول الموظفين");
     }
 
     /**

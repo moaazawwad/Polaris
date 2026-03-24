@@ -11,14 +11,14 @@ import static drivers.DriverHolder.getDriver;
  */
 public class TC02_VerifyEmployeesDataPage extends TestBase {
 
-//    @Test(description = "Verify Employees Data page loads and table contains data")
-//    public void testEmployeesDataTableHasData() {
-//        P02_EmployeesDataPage employeesPage = new P02_EmployeesDataPage(getDriver());
-//        employeesPage.navigateToPage();
-//
-//        boolean hasData = employeesPage.verifyTableHasData();
-//        Assert.assertTrue(hasData, "Employees table is empty - no data found");
-//    }
+    @Test(description = "Verify Employees Data page loads and table contains data")
+    public void testEmployeesDataTableHasData() {
+        P02_EmployeesDataPage employeesPage = new P02_EmployeesDataPage(getDriver());
+        employeesPage.navigateToPage();
+
+        boolean hasData = employeesPage.verifyTableHasData();
+        Assert.assertTrue(hasData, "Employees table is empty - no data found");
+    }
 
     @Test(description = "Verify user can delete an employee successfully")
     public void testDeleteEmployee() throws InterruptedException {

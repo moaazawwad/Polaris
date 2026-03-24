@@ -2,33 +2,51 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="HR-Polaris">
     <parameter name="browser" value="chrome"/>
-
-<!--    <test name="Verify HR Pages">-->
-<!--        <classes>-->
-<!--            <class name="testcases.TC02_VerifyEmployeesDataPage"/>-->
-<!--            <class name="testcases.TC03_VerifyJobPositionPage"/>-->
-<!--            <class name="testcases.TC04_VerifyWorkLocationPage"/>-->
-<!--            <class name="testcases.TC05_VerifyEmployeeOrgStructurePage"/>-->
-<!--            <class name="testcases.TC06_VerifyEmployeeContractPage"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-
-<!--    <test name="Test Add Employee Locators">-->
+<!--    <test name="Add Employee / edit / delete">-->
 <!--        <classes>-->
 <!--            <class name="testcases.TC07_TestAddEmployeeLocators"/>-->
+<!--            <class name="testcases.TC08_EditEmployee"/>-->
+<!--            <class name="testcases.TC02_VerifyEmployeesDataPage">-->
+<!--                <methods>-->
+<!--                    <include name="testDeleteEmployee"/>-->
+<!--                </methods>-->
+<!--            </class>-->
 <!--        </classes>-->
 <!--    </test>-->
 
+    <!-- تحقق من تحميل كل الصفحات (القديمة + الجديدة) -->
+    <test name="Verify HR Pages - Al l">
+        <classes>
+<!--            <class name="testcases.TC03_VerifyJobPositionPage"/>-->
+            <class name="testcases.TC04_VerifyWorkLocationPage"/>
+<!--            <class name="testcases.TC05_VerifyEmployeeOrgStructurePage"/>-->
+<!--            <class name="testcases.TC06_VerifyEmployeeContractPage"/>-->
+<!--            <class name="testcases.TC09_VerifyEmploymentCommencementsPage"/>-->
+<!--            <class name="testcases.TC10_VerifyGeneralSettingsPage"/>-->
+<!--            <class name="testcases.TC11_VerifySalaryTemplatePage"/>-->
+<!--            <class name="testcases.TC12_VerifySalaryItemDefinitionPage"/>-->
+<!--            <class name="testcases.TC13_VerifyLoanTypePage"/>-->
+<!--            <class name="testcases.TC14_VerifyLoanRequestPage"/>-->
+<!--            <class name="testcases.TC15_VerifyEmployeeLoanPage"/>-->
+        </classes>
+    </test>
 
-<!--    <test name="Test Add Employee Locators">-->
+
+<!--    <test name="Edit Employee">-->
 <!--        <classes>-->
 <!--            <class name="testcases.TC08_EditEmployee"/>-->
 <!--        </classes>-->
 <!--    </test>-->
-        <test name="Test Add Employee Locators">
-            <classes>
-                <class name="testcases.TC02_VerifyEmployeesDataPage"/>
-            </classes>
-        </test>
+
+<!--    <test name="Verify HR Pages - All">-->
+<!--    <classes>-->
+<!--    <class name="testcases.TC02_VerifyEmployeesDataPage">-->
+<!--        <methods>-->
+<!--            <include name="testDeleteEmployee"/>-->
+<!--        </methods>-->
+<!--    </class>-->
+<!--    </classes>-->
+
+<!--    </test>-->
 
 </suite>

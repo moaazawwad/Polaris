@@ -94,10 +94,23 @@ public class P07_AddEmployeePage extends PageBase {
         super(driver);
     }
 
+    /** Success toast: "تم بنجاح" (إضافة / تعديل) */
+    private static final By SUCCESS_TOAST = By.xpath("//div[contains(@class,'p-toast-message-content')]//div[contains(@class,'p-toast-summary') and contains(text(),'تم بنجاح')]");
+
     public P07_AddEmployeePage clickSave() {
         WebElement btn = longWait(driver).until(ExpectedConditions.elementToBeClickable(saveButton));
         btn.click();
         return this;
+    }
+
+    /** Wait for success toast to appear after save. Returns true if displayed. */
+    public boolean waitForSuccessToast() {
+        try {
+            longWait(driver).until(ExpectedConditions.visibilityOfElementLocated(SUCCESS_TOAST));
+            return driver.findElement(SUCCESS_TOAST).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public P07_AddEmployeePage clickCancel() {

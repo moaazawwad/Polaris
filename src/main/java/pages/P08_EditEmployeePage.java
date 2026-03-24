@@ -17,8 +17,8 @@ public class P08_EditEmployeePage extends PageBase {
     private final By employeeNameAr = By.cssSelector("[data-testid='nameAr']");
     private final By employeeNameEn = By.cssSelector("[data-testid='nameEn']");
     private final By saveButton = By.xpath("//button[.//span[contains(text(),'حفظ')]]");
-
-
+    /** Success toast: "تم بنجاح" / "تم تعديل البيانات بنجاح" */
+    private static final By SUCCESS_TOAST = By.xpath("//div[contains(@class,'p-toast-message-content')]//div[contains(@class,'p-toast-summary') and contains(text(),'تم بنجاح')]");
 
     public P08_EditEmployeePage setEmployeeNameEn(String value) {
         WebElement input = shortWait(driver).until(ExpectedConditions.visibilityOfElementLocated(employeeNameEn));
@@ -39,4 +39,13 @@ public class P08_EditEmployeePage extends PageBase {
         return this;
     }
 
+    /** Wait for success toast (تم بنجاح) to appear. Returns true if displayed. */
+    public boolean waitForSuccessToast() {
+        try {
+            longWait(driver).until(ExpectedConditions.visibilityOfElementLocated(SUCCESS_TOAST));
+            return driver.findElement(SUCCESS_TOAST).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

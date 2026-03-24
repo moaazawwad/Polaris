@@ -476,9 +476,13 @@ public class Utility {
         }
     }
 
+    /** Random birth date so that age is at least 20 years (age 20–70). */
     public static int[] generateRandomBirthDate() {
         int currentYear = java.time.Year.now().getValue();
-        int year = currentYear - random.nextInt(9) - 18;
+        int minAge = 20;
+        int maxAge = 70;
+        int age = minAge + random.nextInt(maxAge - minAge + 1);
+        int year = currentYear - age;
         int month = random.nextInt(12) + 1;
         int day = random.nextInt(28) + 1;
         return new int[]{year, month, day};

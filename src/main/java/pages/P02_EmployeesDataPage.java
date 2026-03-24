@@ -11,7 +11,7 @@ import java.util.List;
 public class P02_EmployeesDataPage extends PageBase {
 
     // Page Locators
-    private static final By PAGE_HEADER = By.xpath("//span[contains(text(),'هوية الموظف')]");
+    private static final By PAGE_HEADER = By.xpath("//span[contains(text(),'اسم الموظف')]");
     private static final By DATA_CELLS = By.cssSelector("div.font-semibold.text-sm");
 
     // Action Buttons
@@ -121,6 +121,23 @@ public class P02_EmployeesDataPage extends PageBase {
         input.clear();
         input.sendKeys(text);
         return this;
+    }
+
+    /** Search by name then verify at least one table cell contains this text (موظف يظهر في الجدول). */
+    public boolean isEmployeeNameInTable(String name) {
+        try {
+            typeSearch(name);
+            try { Thread.sleep(1500); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+            List<WebElement> cells = driver.findElements(DATA_CELLS);
+            for (WebElement cell : cells) {
+                if (cell.getText().trim().contains(name)) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /** Verify table has data */
